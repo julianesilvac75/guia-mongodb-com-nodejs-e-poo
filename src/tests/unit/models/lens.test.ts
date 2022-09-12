@@ -4,8 +4,8 @@ import LensModel from '../../../models/Lens';
 import { Model } from 'mongoose';
 import { lensMock, lensMockWithId } from '../../mocks/lensMock';
 
-describe('Frame Model', () => {
-  const frameModel = new LensModel();
+describe('Lens Model', () => {
+  const lensModel = new LensModel();
 
 	before(() => {
 		sinon.stub(Model, 'create').resolves(lensMockWithId);
@@ -16,10 +16,10 @@ describe('Frame Model', () => {
 		sinon.restore();
 	});
 
-  describe('creating a frame', () => {
+  describe('creating lens', () => {
 		it('successfully created', async () => {
-			const newFrame = await frameModel.create(lensMock);
-			expect(newFrame).to.be.deep.equal(lensMockWithId);
+			const newLens = await lensModel.create(lensMock);
+			expect(newLens).to.be.deep.equal(lensMockWithId);
 		});
 	});
 
