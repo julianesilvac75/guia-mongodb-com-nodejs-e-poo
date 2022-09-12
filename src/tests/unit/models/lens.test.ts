@@ -23,19 +23,19 @@ describe('Lens Model', () => {
 		});
 	});
 
-	// describe('searching a frame', () => {
-	// 	it('successfully found', async () => {
-	// 		const framesFound = await frameModel.readOne('62cf1fc6498565d94eba52cd');
-	// 		expect(framesFound).to.be.deep.equal(lensMockWithId);
-	// 	});
+	describe('searching for lens', () => {
+		it('successfully found', async () => {
+			const lensFound = await lensModel.readOne('62cf1fc6498565d94eba52cd');
+			expect(lensFound).to.be.deep.equal(lensMockWithId);
+		});
 
-	// 	it('_id not found', async () => {
-	// 		try {
-	// 			await frameModel.readOne('123ERRADO');
-	// 		} catch (error: any) {
-	// 			expect(error.message).to.be.eq('InvalidMongoId');
-	// 		}
-	// 	});
-	// });
+		it('_id not found', async () => {
+			try {
+				await lensModel.readOne('123ERRADO');
+			} catch (error: any) {
+				expect(error.message).to.be.eq('InvalidMongoId');
+			}
+		});
+	});
 
 });
