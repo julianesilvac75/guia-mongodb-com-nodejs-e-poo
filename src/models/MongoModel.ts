@@ -20,6 +20,11 @@ abstract class MongoModel<T> implements IModel<T> {
   public async read(): Promise<T[]> {
     return this._model.find({});
   }
+
+  public async destroy(_id: string): Promise<T | null> {
+    if (!isValidObjectId(_id)) throw Error('InvalidMongoId');
+    return this._model.findByIdAndDelete({ _id });
+  }
 }
 
 export default MongoModel;
