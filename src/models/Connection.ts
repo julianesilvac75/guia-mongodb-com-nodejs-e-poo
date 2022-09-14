@@ -1,9 +1,12 @@
 import 'dotenv/config';
 import mongoose from 'mongoose';
 
+// eslint-disable-next-line max-len
+const connect = 'mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb';
+
 const connectToDatabase = (
   mongoDatabaseURI = process.env.MONGO_URI
-    || 'mongodb://root:example@localhost:27017/glassesStore?authSource=admin',
+    || connect,
 ) => mongoose.connect(mongoDatabaseURI);
 
 export default connectToDatabase;
