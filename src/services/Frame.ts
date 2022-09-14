@@ -28,6 +28,10 @@ class FrameService implements IService<IFrame> {
     if (!frame) throw new Error(ErrorTypes.EntityNotFound);
     return frame;
   }
+
+  public async read(): Promise<IFrame[]> {
+    return this._frame.read();
+  }
 }
 
 export default FrameService;
