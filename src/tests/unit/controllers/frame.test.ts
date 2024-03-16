@@ -21,17 +21,22 @@ describe('Frame Controller', () => {
     sinon.stub(frameService, 'create').resolves(frameMock);
     sinon.stub(frameService, 'readOne').resolves(frameMock);
     sinon.stub(frameService, 'read').resolves([frameMock, frameMockWithId]);
+    sinon.stub(frameService, 'destroy').resolves(frameMock);
 
     res.status = sinon.stub().returns(res);
     res.json = sinon.stub().returns(res);
   });
 
   after(() => {
+    req.body = {};
+    req.params = {};
     sinon.restore();
   });
 
   describe('Create Frame', () => {
     it('Success', async () => {
+      console.log(req);
+      
       req.body = frameMock;
       await frameController.create(req, res);
       // o cast de `res.status` é feito pois `res` foi criado como do tipo `Resquest` 
@@ -42,7 +47,9 @@ describe('Frame Controller', () => {
   });
 
   describe('ReadOne', () => {
+    
     it('Success', async () => {
+      console.log(req);
       // como fizemos o dublê da service o valor do `req.params.id` não vai chegar na model
       // logo ele só precisa ser um string e existir
       req.params = { id: frameMockWithId._id };
@@ -59,7 +66,19 @@ describe('Frame Controller', () => {
 
       expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true;
       expect((res.json as sinon.SinonStub).calledWith([frameMock, frameMockWithId])).to.be.true;
+    });
+  });
 
-    })
+  describe('Destroy', () => {
+    it('Success', async () => {
+      req.params.id = frameMockWithId._id;
+      console.log(req);
+      
+      await frameController.destroy(req, res);
+
+      expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true;
+      expect((res.json as sinon.SinonStub).calledWith(frameMock)).to.be.true;
+
+    });
   });
 });

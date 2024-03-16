@@ -31,7 +31,10 @@ export default class FrameController {
   }
 
   public async destroy(req: Request, res: Response<IFrame>) {
-    const frame = await this._service.destroy(req.params.id);
+    const { id } = req.params;
+    // console.log(id);
+    
+    const frame = await this._service.destroy(id);
     return res.status(200).json(frame);
   }
 }
